@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <rect width="960" height="470" fill="#0f141c"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7a91"/>
+    </marker>
+    <style>
+      .box { fill:#182231; stroke:#2c3a50; stroke-width:1.5; rx:10; }
+      .cyan { stroke:#22d3ee; }
+      .amber { stroke:#ffb020; }
+      .t { fill:#e9edf5; font-size:14px; font-weight:600; }
+      .s { fill:#9aa6bd; font-size:11.5px; }
+      .lane { fill:#9aa6bd; font-size:12px; font-weight:700; letter-spacing:.08em; }
+      .arr { stroke:#6b7a91; stroke-width:1.6; fill:none; marker-end:url(#a); }
+    </style>
+  </defs>
+
+  <text x="24" y="34" class="lane">EVERY VIDEO FRAME</text>
+
+  <!-- row 1: where the head is -->
+  <rect class="box" x="24" y="52" width="150" height="62"/>
+  <text x="99" y="78" class="t" text-anchor="middle">Camera frame</text>
+  <text x="99" y="96" class="s" text-anchor="middle">camera.js</text>
+
+  <path class="arr" d="M180 83 H214"/>
+  <rect class="box" x="220" y="52" width="180" height="62"/>
+  <text x="310" y="72" class="t" text-anchor="middle">478 face points</text>
+  <text x="310" y="90" class="s" text-anchor="middle">MediaPipe, faceTracker.js</text>
+  <text x="310" y="105" class="s" text-anchor="middle">eyes, nose, outline, irises</text>
+
+  <path class="arr" d="M406 83 H440"/>
+  <rect class="box" x="446" y="52" width="180" height="62"/>
+  <text x="536" y="72" class="t" text-anchor="middle">Head pose</text>
+  <text x="536" y="90" class="s" text-anchor="middle">pose.js — rotation, scale,</text>
+  <text x="536" y="105" class="s" text-anchor="middle">distance (Horn / Procrustes)</text>
+
+  <path class="arr" d="M632 83 H666"/>
+  <rect class="box" x="672" y="52" width="264" height="62"/>
+  <text x="804" y="72" class="t" text-anchor="middle">Your head in 3D</text>
+  <text x="804" y="90" class="s" text-anchor="middle">headModel.js — EEG positions (Fp1, AF7…)</text>
+  <text x="804" y="105" class="s" text-anchor="middle">+ sphere hugging the forehead</text>
+
+  <!-- two branches -->
+  <path class="arr" d="M804 120 V150 H300 V176"/>
+  <path class="arr" d="M804 120 V176"/>
+
+  <!-- left branch: where it should go -->
+  <rect class="box cyan" x="150" y="182" width="300" height="72"/>
+  <text x="300" y="206" class="t" text-anchor="middle">Where the sensor SHOULD go</text>
+  <text x="300" y="224" class="s" text-anchor="middle">solvePlacement(): slide and turn the sensor</text>
+  <text x="300" y="240" class="s" text-anchor="middle">until its electrodes sit on the chosen positions</text>
+
+  <!-- right branch: where it is -->
+  <rect class="box amber" x="560" y="182" width="376" height="72"/>
+  <text x="748" y="206" class="t" text-anchor="middle">Where the sensor IS</text>
+  <text x="748" y="224" class="s" text-anchor="middle">detector.js — unwrap the forehead into a flat map,</text>
+  <text x="748" y="240" class="s" text-anchor="middle">then slide a picture of the sensor over it</text>
+
+  <!-- detector detail -->
+  <rect class="box" x="560" y="268" width="118" height="54"/>
+  <text x="619" y="290" class="s" text-anchor="middle">1. unwrap</text>
+  <text x="619" y="306" class="s" text-anchor="middle">1 mm cells</text>
+  <path class="arr" d="M684 295 H700"/>
+  <rect class="box" x="706" y="268" width="118" height="54"/>
+  <text x="765" y="290" class="s" text-anchor="middle">2. dark AND</text>
+  <text x="765" y="306" class="s" text-anchor="middle">colourless?</text>
+  <path class="arr" d="M830 295 H846"/>
+  <rect class="box" x="852" y="268" width="84" height="54"/>
+  <text x="894" y="290" class="s" text-anchor="middle">3. match</text>
+  <text x="894" y="306" class="s" text-anchor="middle">template</text>
+  <path class="arr" d="M748 258 V264"/>
+
+  <!-- both branches meet in the middle -->
+  <path class="arr" d="M300 258 V334 H420 V346"/>
+  <path class="arr" d="M894 326 V334 H540 V346"/>
+  <rect class="box" x="330" y="352" width="300" height="72"/>
+  <text x="480" y="376" class="t" text-anchor="middle">Compare → advice</text>
+  <text x="480" y="394" class="s" text-anchor="middle">guidance.js — "Move a bit toward your</text>
+  <text x="480" y="410" class="s" text-anchor="middle">right ear, 6 mm" (+ arrow, + voice)</text>
+
+  <path class="arr" d="M330 388 H190"/>
+  <rect class="box" x="24" y="352" width="160" height="72"/>
+  <text x="104" y="382" class="t" text-anchor="middle">Draw it</text>
+  <text x="104" y="400" class="s" text-anchor="middle">renderer.js, ui.js</text>
+
+  <path class="arr" d="M636 388 H790"/>
+  <rect class="box" x="796" y="352" width="140" height="72"/>
+  <text x="866" y="382" class="t" text-anchor="middle">You move it</text>
+  <text x="866" y="400" class="s" text-anchor="middle">→ next frame</text>
+</svg>

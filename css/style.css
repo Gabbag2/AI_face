@@ -1,0 +1,186 @@
+/* style.css - dark, phone-first layout.
+   The canvas fills the screen; everything else floats on top of it. */
+
+* { box-sizing: border-box; }
+
+/* An element with the "hidden" attribute must stay hidden, even though the
+   rules below give panels a display value. */
+[hidden] { display: none !important; }
+
+:root {
+  --bg: #0b0e13;
+  --panel: rgba(16, 21, 30, 0.92);
+  --text: #e9edf5;
+  --muted: #9aa6bd;
+  --cyan: #22d3ee;
+  --amber: #ffb020;
+  --green: #35e07a;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  overscroll-behavior: none;
+}
+
+#video { display: none; }
+
+#view {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;        /* show the whole picture, never crop the overlays */
+  background: #000;
+}
+
+/* ------------------------------------------------------------- top bar -- */
+#top {
+  position: fixed;
+  top: calc(var(--safe-top) + 8px);
+  left: 8px;
+  right: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
+.field span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+.row > * { flex: 1 1 140px; }
+
+select, input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: 1px solid #2b3446;
+  background: #131a25;
+  color: var(--text);
+  font-size: 15px;
+}
+
+#fit { margin: 0; font-size: 12.5px; color: var(--muted); }
+#fit.warn { color: var(--amber); }
+
+/* ---------------------------------------------------------- advice card -- */
+#card {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: calc(var(--safe-bottom) + 84px);
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-left: 5px solid var(--muted);
+}
+
+#card[data-state="adjust"] { border-left-color: var(--amber); }
+#card[data-state="aligned"], #card[data-state="perfect"] { border-left-color: var(--green); }
+#card[data-state="preview"] { border-left-color: var(--cyan); }
+
+#card-arrow { font-size: 34px; line-height: 1; min-width: 42px; text-align: center; }
+#card[data-state="perfect"] #card-arrow, #card[data-state="aligned"] #card-arrow { color: var(--green); }
+#card[data-state="adjust"] #card-arrow { color: var(--amber); }
+.card-text { min-width: 0; }
+#card-title { margin: 0; font-size: 17px; font-weight: 650; }
+#card-detail { margin: 2px 0 0; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
+
+/* -------------------------------------------------------------- toolbar -- */
+#tools {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: calc(var(--safe-bottom) + 8px);
+  display: flex;
+  gap: 8px;
+}
+
+#tools button {
+  flex: 1;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--panel);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#tools button small { font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+#tools button.on { background: #17324a; }
+#tools button.on small { color: var(--cyan); }
+
+/* --------------------------------------------------- settings and start -- */
+#settings, #start {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 12, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+  overflow: auto;
+}
+
+#start { align-items: center; }
+
+.sheet {
+  width: min(560px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  background: #10151e;
+  border-radius: 18px 18px 0 0;
+  padding: 18px 16px calc(var(--safe-bottom) + 18px);
+  border: 1px solid #202a3a;
+}
+
+#start .sheet { border-radius: 18px; margin: 12px; }
+h1 { font-size: 21px; margin: 0 0 8px; }
+h2 { font-size: 17px; margin: 0 0 12px; }
+h3 { font-size: 13px; margin: 18px 0 8px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.06em; }
+h3 small, .field small { color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 400; }
+ol { margin: 10px 0 16px; padding-left: 20px; color: var(--muted); font-size: 14px; }
+li { margin: 4px 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; }
+.check { display: flex; align-items: center; gap: 9px; margin: 9px 0; font-size: 14px; }
+.check input { width: 18px; height: 18px; accent-color: var(--cyan); }
+.hint { font-size: 12.5px; color: var(--muted); }
+
+button {
+  font: inherit;
+  padding: 11px 16px;
+  border-radius: 11px;
+  border: 0;
+  background: var(--cyan);
+  color: #06212a;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+button.ghost { background: #1b2433; color: var(--text); }
+#btn-start { width: 100%; margin-top: 6px; font-size: 16px; }
+#settings .row { margin-top: 18px; }
+
+@media (min-width: 720px) {
+  #top { left: 50%; transform: translateX(-50%); width: min(620px, calc(100% - 16px)); right: auto; }
+  #card, #tools { left: 50%; transform: translateX(-50%); width: min(620px, calc(100% - 16px)); right: auto; }
+}

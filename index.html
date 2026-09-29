@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e13">
+  <title>Forehead Sensor Placement Guide</title>
+  <link rel="icon" href="data:,"><!-- no icon file: avoids a useless 404 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- The camera picture is drawn onto the canvas, so the <video> itself stays hidden. -->
+  <video id="video" playsinline muted autoplay></video>
+  <canvas id="view"></canvas>
+
+  <!-- Top: which EEG positions you are aiming for -->
+  <header id="top">
+    <label class="field">
+      <span>Target</span>
+      <select id="placement"></select>
+    </label>
+    <div id="custom" class="row" hidden>
+      <label class="field"><span>Left electrode</span><select id="custom-left"></select></label>
+      <label class="field"><span>Right electrode</span><select id="custom-right"></select></label>
+    </div>
+    <p id="fit"></p>
+  </header>
+
+  <!-- Bottom: the advice -->
+  <section id="card" data-state="searching">
+    <div id="card-arrow">·</div>
+    <div class="card-text">
+      <p id="card-title">Starting…</p>
+      <p id="card-detail"></p>
+    </div>
+  </section>
+
+  <nav id="tools">
+    <button id="btn-switch"><span>⇄</span><small>camera</small></button>
+    <button id="btn-mode"><span>👁</span><small>preview</small></button>
+    <button id="btn-voice"><span>🔇</span><small>voice</small></button>
+    <button id="btn-settings"><span>⚙</span><small>settings</small></button>
+  </nav>
+
+  <!-- Settings sheet -->
+  <aside id="settings" hidden>
+    <div class="sheet">
+      <h2>Settings</h2>
+
+      <h3>Your sensor <small>(measure it, in millimetres)</small></h3>
+      <div id="sensor-fields" class="grid"></div>
+
+      <h3>Your head</h3>
+      <label class="field">
+        <span>Head circumference (cm) <small>optional, more precise</small></span>
+        <input id="head-circumference" type="number" min="40" max="70" step="0.5" placeholder="estimated from your face">
+      </label>
+      <p id="head-estimate" class="hint"></p>
+
+      <h3>Display</h3>
+      <label class="check"><input id="show-all" type="checkbox"> Show every EEG position</label>
+      <label class="check"><input id="show-unwrapped" type="checkbox"> Show the unwrapped forehead (what the detector sees)</label>
+
+      <p id="diagnostics" class="hint"></p>
+      <div class="row">
+        <button id="btn-reset" class="ghost">Reset to defaults</button>
+        <button id="btn-close">Done</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- First screen: the camera needs a tap to start (browsers require it) -->
+  <div id="start">
+    <div class="sheet">
+      <h1>Forehead sensor placement</h1>
+      <p>This app shows where to put your EEG sensor on the forehead (Fp1–Fp2, AF7–AF8, F7–F8…),
+        draws it on your face and tells you how to move it.</p>
+      <ol>
+        <li>Pull your hair away from the forehead, remove glasses.</li>
+        <li>Hold the phone at arm's length, face the light.</li>
+        <li>Follow the arrows until the outline turns green.</li>
+      </ol>
+      <button id="btn-start">Start camera</button>
+      <p id="start-status" class="hint">The video never leaves your device.</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

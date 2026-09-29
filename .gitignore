@@ -1,0 +1,6 @@
+# Self-signed certificate made by serve.py for phone testing
+.cert/
+
+# Python leftovers
+__pycache__/
+*.pyc
